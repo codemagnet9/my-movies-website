@@ -27,7 +27,15 @@ export function Header() {
     if (href === "/") {
       return pathname === "/"
     }
-    return pathname.startsWith(href)
+    
+    // For guestbook page
+    if (href === "/guestbook") {
+      return pathname === "/guestbook"
+    }
+    
+    // For hash links, consider them active only when we're on home page
+    // This means all hash links will be gray when not on home page
+    return false
   }
 
   const getLinkClass = (href: string) => {

@@ -7,14 +7,14 @@ import { getAllBlogPosts, getBlogPost } from "@/lib/mdx"
 import { MDXRemote } from "next-mdx-remote/rsc"
 
 export async function generateStaticParams() {
-  const posts = getAllBlogPosts()
+  const posts = await getAllBlogPosts()
   return posts.map((post) => ({
     slug: post.slug,
   }))
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug)
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const post = await getBlogPost(params.slug)
 
   if (!post) {
     notFound()

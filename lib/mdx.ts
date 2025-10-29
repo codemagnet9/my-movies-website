@@ -2,7 +2,6 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 
-// Change this to point to content/blog instead of just content
 const contentDirectory = path.join(process.cwd(), "content", "blog")
 
 export interface BlogPost {
@@ -16,7 +15,8 @@ export interface BlogPost {
   content: string
 }
 
-export function getAllBlogPosts(): BlogPost[] {
+// Make these functions async for Server Components
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
   try {
     // Check if content directory exists
     if (!fs.existsSync(contentDirectory)) {
@@ -53,7 +53,7 @@ export function getAllBlogPosts(): BlogPost[] {
   }
 }
 
-export function getBlogPost(slug: string): BlogPost | null {
+export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
     const filePath = path.join(contentDirectory, `${slug}.mdx`)
 
